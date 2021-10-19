@@ -1,0 +1,10 @@
+// create stitchuser on Stitch DB
+use admin
+db.createUser({user: "stitchuser",pwd: "password",roles:[ { role: "readWrite", db: "stitch" }, { role: "readWrite", db: "stitchdb" }]})
+
+//Create Service Discovery DB
+use stitchdb
+db.config.insert({"_id":"defaultconfig","MaxRetrys":NumberInt(10000),"SleepTime":NumberInt(100),"CheckDobConfig":false,"DobRequiredConfig":false,"CheckDobYrDiffInt":NumberInt(20),"DobFormatString":"dd-mm-yyyy"});
+
+//Load dependent tables for Stitch
+db.config.insert({"_id":"nicknames"});
